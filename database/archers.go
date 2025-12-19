@@ -26,6 +26,15 @@ func DBInsertMultipleArchers(archers []*models.Archer) error {
 	return nil
 }
 
+func DBGetArcherByFullName(firstname string, lastname string) (*models.Archer, error) {
+	archer := &models.Archer{}
+	err := db.Get(archer, `SELECT firstname, lastname, school, bowtype, age FROM archers WHERE firstname=$1 AND lastname=$2`, firstname, lastname)
+	if err != nil {
+		return nil, err
+	}
+	return archer, nil
+}
+
 func DBGetAllArchersInSchool(school string) ([]models.Archer, error) {
 	archers := []models.Archer{}
 	err := db.Select(archers, `SELECT * FRROM archers WHERE school=$1 ORDER BY lastname ASC`, school)
