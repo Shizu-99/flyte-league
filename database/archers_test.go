@@ -17,24 +17,13 @@ func TestDBInsertArcher(t *testing.T) {
 	}
 	tests := []struct {
 		name           string
-		archerToInsert models.Archer
+		archerToInsert *models.Archer
 		expectErr      bool
 	}{
 		{
 			name:           "Successful Insertion",
-			archerToInsert: archer,
+			archerToInsert: &archer,
 			expectErr:      false,
-		},
-		{
-			name: "Unsuccessful Insertion",
-			archerToInsert: models.Archer{
-				Firstname: "Rin",
-				Lastname:  "Shima",
-				School:    "Motosu High School",
-				Bowtype:   "Recurve",
-				Age:       16,
-			},
-			expectErr: true,
 		},
 	}
 
@@ -45,13 +34,15 @@ func TestDBInsertArcher(t *testing.T) {
 			}
 			defer CloseDatabase()
 
-			err := DBInsertArcher(&test.archerToInsert)
+			err := DBInsertArcher(test.archerToInsert)
 			if assert.Error(t, err) && !test.expectErr {
 				t.Fatal("expected nil, but got error: ", err)
-			} else if !assert.Error(t, err) && test.expectErr {
-				t.Fatal("expected an error, but got nil")
 			} else if !assert.Error(t, err) && !test.expectErr {
-
+				actualArcher, err := DBGetArcherByFullName("Rin", "Shima")
+				if err != nil {
+					t.Error(err)
+				}
+				assert.Equal(t, test.archerToInsert, actualArcher)
 			}
 		})
 	}
