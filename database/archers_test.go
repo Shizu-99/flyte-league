@@ -35,15 +35,14 @@ func TestDBInsertArcher(t *testing.T) {
 			defer CloseDatabase()
 
 			err := DBInsertArcher(test.archerToInsert)
-			if assert.Error(t, err) && !test.expectErr {
-				t.Fatal("expected nil, but got error: ", err)
-			} else if !assert.Error(t, err) && !test.expectErr {
-				actualArcher, err := DBGetArcherByFullName("Rin", "Shima")
-				if err != nil {
-					t.Error(err)
-				}
-				assert.Equal(t, test.archerToInsert, actualArcher)
+			if err != nil {
+				t.Error(err)
 			}
+			actualArcher, err := DBGetArcherByFullName("Rin", "Shima")
+			if err != nil {
+				t.Error(err)
+			}
+			assert.Equal(t, test.archerToInsert, actualArcher)
 		})
 	}
 }
