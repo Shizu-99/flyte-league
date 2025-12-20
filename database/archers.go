@@ -37,7 +37,7 @@ func DBGetArcherByFullName(firstname string, lastname string) (*models.Archer, e
 
 func DBGetAllArchersInSchool(school string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT * FRROM archers WHERE school=$1 ORDER BY lastname ASC`, school)
+	err := db.Select(archers, `SELECT firstname, lastname, school, bowtype, age FRROM archers WHERE school=$1 ORDER BY lastname ASC`, school)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func DBGetAllArchersInSchool(school string) ([]models.Archer, error) {
 
 func DBGetArchersByFirstName(name string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT * FROM archers WHERE firstname=$1 ORDER BY firstname ASC`, name)
+	err := db.Select(archers, `SELECT firstname, lastname, school, bowtype, age FROM archers WHERE firstname=$1 ORDER BY firstname ASC`, name)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func DBGetArchersByFirstName(name string) ([]models.Archer, error) {
 
 func DBGetArchersByLastName(name string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT * FROM archers WHERE lastname=$1 ORDER BY lastname ASC`, name)
+	err := db.Select(archers, `SELECT firstname, lastname, school, bowtype, age FROM archers WHERE lastname=$1 ORDER BY lastname ASC`, name)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func DBGetArchersByLastName(name string) ([]models.Archer, error) {
 
 func DBGetAllArchersByBowtype(bowtype string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT * FRROM archers WHERE bowtype=$1 ORDER BY lastname ASC`, bowtype)
+	err := db.Select(archers, `SELECT firstname, lastname, school, bowtype, age FRROM archers WHERE bowtype=$1 ORDER BY lastname ASC`, bowtype)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func DBGetAllArchersByBowtype(bowtype string) ([]models.Archer, error) {
 
 func DBGetAllArchersByAge(upperAgeLimit int, lowerAgeLimit int) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT * FRROM archers WHERE age<$1 AND age >$2 ORDER BY lastname ASC`, upperAgeLimit, lowerAgeLimit)
+	err := db.Select(archers, `SELECT firstname, lastname, school, bowtype, age FRROM archers WHERE age<$1 AND age >$2 ORDER BY lastname ASC`, upperAgeLimit, lowerAgeLimit)
 	if err != nil {
 		return nil, err
 	}
