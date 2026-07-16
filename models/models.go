@@ -10,16 +10,16 @@ type Archer struct {
 	Age        int    `db:"age"`
 }
 
-type Round struct {
+type Event struct {
+	Event_name string    `db:"event_name"`
+	Date       time.Time `db:"date"`
 	Round_num  int       `db:"round_num"`
 	Session    int       `db:"session"`
-	Date       time.Time `db:"date"`
-	Event_name string    `db:"event_name"`
 }
 
 type Score struct {
 	Archer Archer `db:"archer"`
-	Event  string `db:"event"`
+	Event  Event  `db:"event"`
 	Score  int    `db:"score"`
 	Xs     int    `db:"xs"`
 	tens   int    `db:"tens"`
