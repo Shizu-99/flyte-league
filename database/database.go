@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS archers (
 	school TEXT,
 	bowtype TEXT NOT NULL,
 	age INTEGER NOT NULL
+)
+	
+CREATE TABLE IF NOT EXISTS events (
+	event_id INTEGER PRIMARY KEY,
+	event_name TEXT NOT NULL COLLATE NOCASE,
+	date DATETIME NOT NULL,
+	round_num INTEGER NOT NULL,
+	session INTEGER CHECK (round_num == 1 OR round_num == 2)
 );
 `
 
