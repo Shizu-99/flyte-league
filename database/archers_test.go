@@ -1,8 +1,9 @@
 package database
 
 import (
-	"flyte-league/models"
 	"testing"
+
+	"flyte-league/models"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -11,9 +12,10 @@ func TestDBInsertArcher(t *testing.T) {
 	archer := models.Archer{
 		First_name: "Rin",
 		Last_name:  "Shima",
-		School:     "Motosu High School",
-		Bowtype:    "Recurve",
-		Age:        16,
+		//School: models.School{
+		//	Name:     "Motosu High School",
+		//	Location: "Japan",
+		//},
 	}
 	tests := []struct {
 		name           string
@@ -50,30 +52,27 @@ func TestDBGetArcherByFullName(t *testing.T) {
 		{
 			First_name: "Rin",
 			Last_name:  "Shima",
-			School:     "Motosu High School",
-			Bowtype:    "Recurve",
-			Age:        16,
 		},
 		{
 			First_name: "Nagi",
 			Last_name:  "Arato",
-			School:     "Maehiba Graduate School of Science",
-			Bowtype:    "Compound",
-			Age:        24,
+			//School: models.School{
+			//	Name:     "Maehiba Graduate School of Science",
+			//	Location: "Japan",
+			//},
 		},
 		{
 			First_name: "Nagisa",
 			Last_name:  "Shiota",
-			School:     " Kunugigaoka Junior High School",
-			Bowtype:    "Recurve",
-			Age:        17,
+			//School: models.School{
+			//	Name:     "Kunugigaoka Junior High School",
+			//	Location: "Japan",
+			//},
 		},
 		{
 			First_name: "Klaudia",
 			Last_name:  "Valentz",
-			School:     "",
-			Bowtype:    "Barebow",
-			Age:        21,
+			//School:     models.School{},
 		},
 	}
 	tests := []struct {
@@ -91,9 +90,6 @@ func TestDBGetArcherByFullName(t *testing.T) {
 			archerToRetrieve: &models.Archer{
 				First_name: "Nadeshiko",
 				Last_name:  "Kagamihara",
-				School:     "Motosu High School",
-				Bowtype:    "Compound",
-				Age:        16,
 			},
 			expectErr: true,
 		},
