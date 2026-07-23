@@ -3,7 +3,7 @@ package database
 import "flyte-league/models"
 
 func DBInsertArcher(archer *models.Archer) error {
-	_, err := db.NamedExec(`INSERT OR IGNORE INTO archers (first_name, last_name, school, bowtype, age) VALUES (:first_name, :last_name, :school, :bowtype, :age)`, archer)
+	_, err := db.NamedExec(`INSERT OR IGNORE INTO archers (first_name, last_name) VALUES (:first_name, :last_name)`, archer)
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func DBInsertMultipleArchers(archers []*models.Archer) error {
 
 func DBGetArcherByFullName(first_name string, last_name string) (*models.Archer, error) {
 	archer := &models.Archer{}
-	err := db.Get(archer, `SELECT first_name, last_name, school, bowtype, age FROM archers WHERE first_name=$1 AND last_name=$2`, first_name, last_name)
+	err := db.Get(archer, `SELECT first_name, last_name FROM archers WHERE first_name=$1 AND last_name=$2`, first_name, last_name)
 	if err != nil {
 		return nil, err
 	}
