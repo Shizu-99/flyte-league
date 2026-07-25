@@ -20,10 +20,12 @@ func TestDBInsertArcher(t *testing.T) {
 	tests := []struct {
 		name           string
 		archerToInsert *models.Archer
+		expectErr      bool
 	}{
 		{
 			name:           "Successful Insertion",
 			archerToInsert: &archer,
+			expectErr:      false,
 		},
 	}
 
@@ -35,14 +37,15 @@ func TestDBInsertArcher(t *testing.T) {
 			defer CloseDatabase()
 
 			err := DBInsertArcher(test.archerToInsert)
-			if err != nil {
-				t.Error(err)
+			if test.expectErr {
+				assert.Error(t, err)
+			} else {
+				actualArcher, err := DBGetArcherByFullName("Rin", "Shima")
+				if err != nil {
+					t.Error(err)
+				}
+				assert.Equal(t, test.archerToInsert, actualArcher)
 			}
-			actualArcher, err := DBGetArcherByFullName("Rin", "Shima")
-			if err != nil {
-				t.Error(err)
-			}
-			assert.Equal(t, test.archerToInsert, actualArcher)
 		})
 	}
 }
