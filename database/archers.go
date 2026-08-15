@@ -18,11 +18,11 @@ func DBInsertMultipleArchers(archers []models.Archer) error {
 	return nil
 }
 
-func DBGetArcherByFullName(first_name string, last_name string) (*models.Archer, error) {
-	archer := &models.Archer{}
+func DBGetArcherByFullName(first_name string, last_name string) (models.Archer, error) {
+	archer := models.Archer{}
 	err := db.Get(archer, `SELECT first_name, last_name FROM archers WHERE first_name=$1 AND last_name=$2`, first_name, last_name)
 	if err != nil {
-		return nil, err
+		return archer, err
 	}
 	return archer, nil
 }
