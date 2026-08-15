@@ -51,7 +51,7 @@ func TestDBInsertArcher(t *testing.T) {
 }
 
 func TestDBGetArcherByFullName(t *testing.T) {
-	archers := []*models.Archer{
+	archers := []models.Archer{
 		{
 			First_name: "Rin",
 			Last_name:  "Shima",
@@ -80,7 +80,7 @@ func TestDBGetArcherByFullName(t *testing.T) {
 	}
 	tests := []struct {
 		name             string
-		archerToRetrieve *models.Archer
+		archerToRetrieve models.Archer
 		expectErr        bool
 	}{
 		{
@@ -90,7 +90,7 @@ func TestDBGetArcherByFullName(t *testing.T) {
 		},
 		{
 			name: "Archer does not exist",
-			archerToRetrieve: &models.Archer{
+			archerToRetrieve: models.Archer{
 				First_name: "Nadeshiko",
 				Last_name:  "Kagamihara",
 			},
