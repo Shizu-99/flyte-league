@@ -10,18 +10,10 @@ func DBInsertArcher(archer *models.Archer) error {
 	return nil
 }
 
-func DBInsertMultipleArchers(archers []*models.Archer) error {
-	stmt, err := db.PrepareNamed(`INSERT OR IGNORE INTO archers (first_name, last_name, school, bowtype, age) VALUES (:first_name, :last_name, :school, :bowtype, :age)`)
+func DBInsertMultipleArchers(archers []models.Archer) error {
+	_, err := db.NamedExec(`INSERT OR IGNORE INTO archers (first_name, last_name) VALUES (:first_name, :last_name)`, archers)
 	if err != nil {
 		return err
-	}
-	defer stmt.Close()
-
-	for _, archer := range archers {
-		_, err := stmt.Exec(archer)
-		if err != nil {
-			return err
-		}
 	}
 	return nil
 }
@@ -35,9 +27,9 @@ func DBGetArcherByFullName(first_name string, last_name string) (*models.Archer,
 	return archer, nil
 }
 
-func DBGetArchersByfirst_name(name string) ([]models.Archer, error) {
+func DBGetArchersByFirstName(name string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT first_name, last_name, school, bowtype, age FROM archers WHERE first_name=$1 ORDER BY first_name ASC`, name)
+	err := db.Select(archers, `SELECT first_name, last_name FROM archers WHERE first_name LIKE '$1%' ORDER BY first_name ASC`, name)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +38,7 @@ func DBGetArchersByfirst_name(name string) ([]models.Archer, error) {
 
 func DBGetArchersBylast_name(name string) ([]models.Archer, error) {
 	archers := []models.Archer{}
-	err := db.Select(archers, `SELECT first_name, last_name, school, bowtype, age FROM archers WHERE last_name=$1 ORDER BY last_name ASC`, name)
+	err := db.Select(archers, `SELECT first_name, last_name FROM archers WHERE last_name LIKE '$1%' ORDER BY last_name ASC`, name)
 	if err != nil {
 		return nil, err
 	}
