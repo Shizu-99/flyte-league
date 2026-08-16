@@ -9,31 +9,31 @@ type School struct {
 }
 
 type Archer struct {
-	ID         int    `db:"archer_id"`
-	First_name string `db:"first_name"`
-	Last_name  string `db:"last_name"`
+	ID        int    `db:"archer_id"`
+	FirstName string `db:"first_name"`
+	LastName  string `db:"last_name"`
 }
 
 type Event struct {
 	Name        string    `db:"name"`
 	Description string    `db:"description"`
-	Start_date  time.Time `db:"start_date"`
-	End_date    time.Time `db:"end_date"`
+	StartDate   time.Time `db:"start_date"`
+	EndDate     time.Time `db:"end_date"`
 }
 
 type EventDay struct {
-	Date       time.Time `db:"day_date"`
-	Day_number int       `db:"day_number"`
+	Date      time.Time `db:"day_date"`
+	DayNumber int       `db:"day_number"`
 }
 
 type Round struct {
-	Name               string `db:"name"`
-	Max_possible_score int    `db:"max_possible_score"`
+	Name             string `db:"name"`
+	MaxPossibleScore int    `db:"max_possible_score"`
 }
 
 type Session struct {
-	Name       string    `db:"name"`
-	Start_time time.Time `db:"start_time"`
+	Name      string    `db:"name"`
+	StartTime time.Time `db:"start_time"`
 }
 
 type Score struct {
@@ -44,8 +44,8 @@ type Score struct {
 }
 
 type Team struct {
-	Team_name string `db:"name"`
-	Division  int    `db:"division"`
+	TeamName string `db:"name"`
+	Division int    `db:"division"`
 }
 
 type Registration struct {
