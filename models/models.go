@@ -14,6 +14,13 @@ type Archer struct {
 	LastName  string `db:"last_name"`
 }
 
+type ArcherWithSchool struct {
+	ID        int    `db:"archer_id"`
+	FirstName string `db:"first_name"`
+	LastName  string `db:"last_name"`
+	School    School `db:"school"`
+}
+
 type Event struct {
 	Name        string    `db:"name"`
 	Description string    `db:"description"`
