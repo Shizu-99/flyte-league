@@ -1,11 +1,14 @@
 package models
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 type School struct {
-	ID       int    `db:"school_id"`
-	Name     string `db:"name"`
-	Location string `db:"location"`
+	ID       int            `db:"school_id"`
+	Name     string         `db:"name"`
+	Location sql.NullString `db:"location"`
 }
 
 type Archer struct {
