@@ -18,10 +18,16 @@ PRAGMA foreign_keys = ON;
 
 CREATE TABLE schools (
     school_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     location TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Index 1: Ensures (name, location) is unique when location IS provided
+CREATE UNIQUE INDEX idx_schools_name_location ON schools(name, location) WHERE location IS NOT NULL;
+
+-- Index 2: Ensures name is unique when location IS NULL
+CREATE UNIQUE INDEX idx_schools_name_null_location ON schools(name) WHERE location IS NULL;
 
 CREATE TABLE archers (
     archer_id INTEGER PRIMARY KEY AUTOINCREMENT,
