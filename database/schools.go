@@ -1,13 +1,29 @@
 package database
 
-import "flyte-league/models"
+import (
+	"database/sql"
+	"flyte-league/models"
+)
 
-func DBInsertSchool(school *models.School) error {
-	_, err := db.NamedExec(`INSERT OR IGNORE INTO schools (name, location) VALUES (:name, :location)`, school)
+func DBInsertSchools(schools []*models.School) error {
+	_, err := db.NamedExec(`INSERT INTO schools (name, location) VALUES (:name, :location)`, schools)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func DBGetAllSchools() ([]models.School, error) {
+	schools := []models.School{}
+	query := `SELECT name, location FROM schools`
+	err := db.Select(&schools, query)
+	if err != nil {
+		return nil, err
+	}
+	if len(schools) == 0 {
+		return nil, sql.ErrNoRows
+	}
+	return schools, nil
 }
 
 func DBGetSchoolByName(name string) (*models.School, error) {
